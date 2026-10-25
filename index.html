@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#263e35">
   <meta name="description" content="Подготовка к устойчивому управлению: простые и профессиональные объяснения, подробные ответы, кейсы и пробный экзамен.">
-  <title>Тренажёр по устойчивому развитию · версия 12</title>
+  <title>Тренажёр по устойчивому развитию · версия 13</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTQiIGZpbGw9IiMyNjNlMzUiLz48cGF0aCBkPSJNMTMgMzFDOSAxNyAyNCAxMCAzNiAxMmMxIDEzLTYgMjUtMTkgMjNtMCAwIDEzLTE1IiBzdHJva2U9IiNkMmVjYWMiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" type="image/svg+xml">
   <style>
 :root{--forest:#263e35;--forest2:#345447;--lime:#d5edb2;--bg:#f6f7f2;--paper:#fff;--ink:#24392f;--muted:#778177;--line:#e3e8de;--green:#54744c;--purple:#816799;--amber:#8e6d31;--red:#ab4c46;--radius:22px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
@@ -100,6 +100,8 @@
 
 .case-question-nav{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.case-question-heading h4{scroll-margin-top:24px}.case-question-heading h4:focus{outline:none}
 
+.essential-test-card{padding:25px 28px;margin:0 0 24px;background:#edf3e5;border-color:#ccdabb;min-width:0}.essential-test-card>.eyebrow{color:#617b4f}.essential-test-card>h2,.essential-test-card>h3{font-size:23px;line-height:1.35;margin:10px 0 12px;letter-spacing:-.025em}.essential-test-card>p{font-size:13px;max-width:78ch;color:#53644c}.essential-test-card .essential-test-status{margin-top:13px;font-size:12px}.essential-test-status>strong{font-weight:650}.essential-test-card .question-actions{margin-top:18px}.essential-test-topics{margin-top:17px;border-top:1px solid #d3dfc6;padding-top:14px;font-size:12px}.essential-test-topics>summary{cursor:pointer;font-weight:650}.essential-test-topics>ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 30px;padding-left:23px;margin:16px 0}.essential-test-topics li{padding-left:2px;overflow-wrap:anywhere}.essential-test-topics li>span{display:block}.essential-test-topics li>small{display:block;color:#718265}.essential-test-topics>p{color:#718265;font-size:11px}@media(max-width:600px){.essential-test-card{padding:21px 18px}.essential-test-card>h2,.essential-test-card>h3{font-size:21px}.essential-test-topics>ol{grid-template-columns:minmax(0,1fr)}.essential-test-card .question-actions>.btn{width:100%}}
+
 </style>
   
 </head>
@@ -107,7 +109,7 @@
   <a class="skip-link" href="#main">К содержанию</a>
   <div id="app">
     <section class="launch-help" id="main" tabindex="-1" aria-labelledby="launch-title">
-      <span class="eyebrow">Тренажёр по устойчивому развитию · версия 12</span>
+      <span class="eyebrow">Тренажёр по устойчивому развитию · версия 13</span>
       <h1 id="launch-title">Как открыть файл на iPhone</h1>
       <p>Просмотрщик документа может показывать HTML без выполнения кода. Открой веб-версию тренажёра в Safari — она работает по обычной ссылке.</p>
       <p><a href="https://samuraigug.github.io/sustainability-trainer/">Открыть тренажёр в браузере</a></p>
@@ -3071,7 +3073,7 @@ function filterStudyTopics(query) {
 }
 
 // Derived teaching material. No original attachments or third-party scripts are published.
-const PREP_VERSION = '2026-10-25.13';
+const PREP_VERSION = '2026-10-25.14';
 const PREP_SOURCES = {
   'lecture-local': { title: 'Лекции преподавателя · 139 страниц', url: '#theory', note: 'Присланный PDF. Страницы в конспекте относятся к файлу. Формат экзамена — страница 5.' },
   'audio-local': { title: 'Объяснение формата преподавателем', url: '#sources', note: 'Присланная аудиозапись, 2 мин 35 с. Матрица сторон: 0:00–0:26; матрица покупки: 0:26–0:50; отчётность и роли: 1:38–2:28. Пересказ, а не дословная цитата.' },
@@ -8691,6 +8693,17 @@ const TOPIC_PRIORITIES = {
   'ratings-limits':priority('deepening','Оценка эффективности и работа с индексами есть в открытой программе курса. Подробного раздела в присланном PDF нет; изучай методики и ограничения после ядра.','Объяснить назначение рейтинга, границы методики, качества данных и сопоставимости; не приравнивать высокий балл к доказательству отсутствия воздействий.'),
 };
 
+// A separate review session. The four complete course blocks keep their scope.
+const essentialGroups = COURSE_UNITS.flatMap(unit=>unit.topics)
+  .filter(id=>TOPIC_PRIORITIES[id].tier==='essential')
+  .map(id=>TOPIC_QUESTION_GROUPS.find(group=>group.topicId===id));
+const ESSENTIAL_TEST = {
+  id:'review-essential',
+  title:'Тест по обязательным темам',
+  topics:essentialGroups.map(group=>({id:group.topicId,title:group.title.replace(/^Тема · /,''),count:group.closedIds.length})),
+  questionIds:essentialGroups.flatMap(group=>group.closedIds),
+};
+
 
 const visualNode = (title, text, example='') => ({title,text,example});
 const visualLane = (title, steps, note) => ({title,steps,note});
@@ -9112,7 +9125,7 @@ function scoreMockExam(mock, lookup, evaluator) {
 }
 
 const STORAGE_KEY = 'sustainability-trainer:v1';
-const SAVED_SESSION_IDS = ['set1', 'set2', 'closed-foundations', 'closed-people', 'closed-marketing', 'closed-resources', ...TOPIC_QUESTION_GROUPS.map(g=>g.id)];
+const SAVED_SESSION_IDS = ['set1', 'set2', 'closed-foundations', 'closed-people', 'closed-marketing', 'closed-resources', ESSENTIAL_TEST.id, ...TOPIC_QUESTION_GROUPS.map(g=>g.id)];
 const emptyProgress = () => ({ version: 1, questions: {}, sessions: [], savedSessions: {}, active: null, preparation: emptyPreparation() });
 const unique = values => [...new Set(values)];
 
@@ -9302,6 +9315,7 @@ function topicPracticeSearchText(topicId,lookup) {
 const ALL_CASES = [...CASE_BANK, ...TOPIC_CASE_BANK];
 const ALL_CASE_ANSWERS = {...ACADEMIC_ANSWERS, ...TOPIC_CASE_ANSWERS};
 const ALL_CLOSED = CLOSED_QUESTIONS;
+const ORDERED_TRAINING_SETS = [...CLOSED_BLOCKS, ESSENTIAL_TEST, ...TOPIC_QUESTION_GROUPS];
 const ALL_TOPICS = [...STUDY_TOPICS, ...PREP_TOPICS];
 const THEORY_ORDER = THEORY_TIERS.flatMap(tier=>COURSE_UNITS.flatMap(u=>u.topics).filter(id=>TOPIC_PRIORITIES[id].tier===tier.id));
 const BANK = [...ALL_CLOSED, ...OPEN, ...ALL_CASES];
@@ -9439,9 +9453,9 @@ function sessionView() {
   if (session.completedAt || !session.queue.length) return completion(session);
   const question = byId[session.queue[0]];
   const feedback = session.feedback;
-  const block = CLOSED_BLOCKS.find(b=>b.id===sessionSetId(session))||TOPIC_QUESTION_GROUPS.find(g=>g.id===sessionSetId(session));
+  const block = ORDERED_TRAINING_SETS.find(b=>b.id===sessionSetId(session));
   const stage = sessionStage(session);
-  return `${header('Тренировка', session.label)}<div class="session-layout"><section class="card question-card" aria-labelledby="question-title"><div class="question-meta"><span class="tag">${question.type === 'open' ? 'Развёрнутый ответ' : 'Закрытый вопрос'}</span><span>${esc(question.topic)}</span><span class="question-number">${block?`Задание ${block.topicId?'урока':'блока'} ${stage.position} из ${session.initialIds.length}`:`№ ${question.number}`}</span></div>${block?`<div class="session-stage ${stage.repeating?'is-repeat':''}"><strong>${stage.repeating?'Повторение ошибок':'Первый круг'}</strong><span>${stage.repeating?'Новые вопросы пройдены. Закрепляем то, что не получилось.':block.topicId?'Сначала восемь вопросов и кейс; затем повторяем ошибки.':'Сначала все вопросы блока; ошибки вернутся после них.'}</span></div>`:''}<h2 id="question-title" lang="${language}">${esc(txt(question))}</h2>${session.attempts[question.id] ? `<div class="repeat-badge">${icon('repeat')} Повторение · попытка ${session.attempts[question.id] + (feedback ? 0 : 1)}</div>` : ''}${caseScenario(question)}${original(question)}${question.type === 'closed' ? `<fieldset class="answers" ${feedback ? 'disabled' : ''}><legend>Отметь варианты, которые считаешь верными</legend>${question.options.map((option, i) => {
+  return `${header('Тренировка', session.label)}<div class="session-layout"><section class="card question-card" aria-labelledby="question-title"><div class="question-meta"><span class="tag">${question.type === 'open' ? 'Развёрнутый ответ' : 'Закрытый вопрос'}</span><span>${esc(question.topic)}</span><span class="question-number">${block?`Задание ${block.id===ESSENTIAL_TEST.id?'теста':block.topicId?'урока':'блока'} ${stage.position} из ${session.initialIds.length}`:`№ ${question.number}`}</span></div>${block?`<div class="session-stage ${stage.repeating?'is-repeat':''}"><strong>${stage.repeating?'Повторение ошибок':'Первый круг'}</strong><span>${stage.repeating?'Новые вопросы пройдены. Закрепляем то, что не получилось.':block.topicId?'Сначала восемь вопросов и кейс; затем повторяем ошибки.':block.id===ESSENTIAL_TEST.id?'Сначала все вопросы обязательных тем; затем повторяем ошибки.':'Сначала все вопросы блока; ошибки вернутся после них.'}</span></div>`:''}<h2 id="question-title" lang="${language}">${esc(txt(question))}</h2>${session.attempts[question.id] ? `<div class="repeat-badge">${icon('repeat')} Повторение · попытка ${session.attempts[question.id] + (feedback ? 0 : 1)}</div>` : ''}${caseScenario(question)}${original(question)}${question.type === 'closed' ? `<fieldset class="answers" ${feedback ? 'disabled' : ''}><legend>Отметь варианты, которые считаешь верными</legend>${question.options.map((option, i) => {
       const picked = session.selected.includes(option.id);
       const correct = (feedback ? feedbackKey(question, feedback) : question.correct).includes(option.id);
       return `<label class="answer-option ${picked ? 'picked' : ''} ${feedback ? (correct ? 'right' : picked ? 'wrong' : 'muted-option') : ''}"><input type="checkbox" name="answer" value="${option.id}" ${picked ? 'checked' : ''}><span class="letter">${option.id}</span><span class="option-text" lang="${language}">${esc(option.ru)}</span><span class="option-marker">${feedback && correct ? icon('check') : feedback && picked ? icon('close') : `<span>${i + 1}</span>`}</span></label>`;
@@ -9451,7 +9465,7 @@ function sessionView() {
 
 function completion(session) {
   const attempts = Object.values(session.attempts).reduce((sum, n) => sum + n, 0);
-  return `${header('Тренировка завершена', session.label)}<section class="card completion"><div class="completion-icon">${icon('check')}</div><span class="eyebrow">ВСЕ ВОПРОСЫ ЗАЧТЕНЫ</span><h2>С этим набором<br>уже увереннее.</h2><p>Ты прошёл все вопросы до верного ответа.<br>Вернись к ним позже, чтобы проверить, что запомнилось.</p><div class="completion-stats"><div><strong>${session.initialIds.length}</strong><span>${plural(session.initialIds.length, 'вопрос', 'вопроса', 'вопросов')}</span></div><div><strong>${attempts}</strong><span>${plural(attempts, 'попытка', 'попытки', 'попыток')}</span></div><div><strong>${Object.values(session.attempts).filter(n => n > 1).length}</strong><span>с повторением</span></div></div><div class="question-actions"><button class="btn primary" data-action="repeat-session">Пройти ещё раз ${icon('repeat')}</button><a class="btn secondary" href="${CLOSED_BLOCKS.some(b=>b.id===sessionSetId(session))?'#bank':TOPIC_QUESTION_GROUPS.some(g=>g.id===sessionSetId(session))?'#theory':'#home'}">К тренировкам</a></div><small>Закрытые вопросы сверены с учебным ключом; открытые зачтены по твоей самооценке.</small></section>`;
+  return `${header('Тренировка завершена', session.label)}<section class="card completion"><div class="completion-icon">${icon('check')}</div><span class="eyebrow">ВСЕ ВОПРОСЫ ЗАЧТЕНЫ</span><h2>С этим набором<br>уже увереннее.</h2><p>Ты прошёл все вопросы до верного ответа.<br>Вернись к ним позже, чтобы проверить, что запомнилось.</p><div class="completion-stats"><div><strong>${session.initialIds.length}</strong><span>${plural(session.initialIds.length, 'вопрос', 'вопроса', 'вопросов')}</span></div><div><strong>${attempts}</strong><span>${plural(attempts, 'попытка', 'попытки', 'попыток')}</span></div><div><strong>${Object.values(session.attempts).filter(n => n > 1).length}</strong><span>с повторением</span></div></div><div class="question-actions"><button class="btn primary" data-action="repeat-session">Пройти ещё раз ${icon('repeat')}</button><a class="btn secondary" href="${(CLOSED_BLOCKS.some(b=>b.id===sessionSetId(session))||sessionSetId(session)===ESSENTIAL_TEST.id)?'#bank':TOPIC_QUESTION_GROUPS.some(g=>g.id===sessionSetId(session))?'#theory':'#home'}">К тренировкам</a></div><small>Закрытые вопросы сверены с учебным ключом; открытые зачтены по твоей самооценке.</small></section>`;
 }
 
 function filteredBank() {
@@ -9462,6 +9476,13 @@ function bankRows() {
   const questions = filteredBank();
   return `<div class="bank-summary">${questions.length} из ${BANK.filter(q=>q.kind!=='case').length} вопросов</div>${questions.length ? questions.map(q => `<article class="card bank-row"><div class="bank-index">${q.number}</div><div><div class="bank-row-tags"><span>${q.type === 'open' ? 'Открытый' : 'Закрытый'}</span><span>${q.sets.length === 2 ? 'Оба набора' : SETS.find(s => s.id === q.sets[0])?.name || 'Дополнительная подготовка'}</span>${q.caveat ? '<span class="amber-text">С оговоркой</span>' : ''}${progress.questions[q.id]?.lastCorrect ? '<span class="green-text">Зачтено</span>' : ''}</div><h2 lang="${language}">${esc(txt(q))}</h2><details data-bank-answer="${esc(q.id)}"><summary>Ответ и разбор</summary><div class="bank-answer-content"></div></details></div><button class="icon-button" data-action="single" data-id="${q.id}" aria-label="Тренировать вопрос ${q.number}">${icon('arrow')}</button></article>`).join('') : '<div class="card empty-state">По этому запросу ничего не найдено. Попробуй другое слово.</div>'}`;
 }
+function essentialTestHTML(context) {
+  const saved=getResumableSession(progress,ESSENTIAL_TEST.id);
+  const stage=saved?sessionStage(saved):null;
+  const heading=context==='theory'?'h3':'h2';
+  return `<section class="card essential-test-card" id="essential-test-${context}"><span class="eyebrow">ОТДЕЛЬНЫЙ ТЕСТ · ${ESSENTIAL_TEST.topics.length} ОБЯЗАТЕЛЬНЫХ ТЕМ</span><${heading}>${esc(ESSENTIAL_TEST.title)}</${heading}><p>${ESSENTIAL_TEST.questionIds.length} вопросов с выбором вариантов — по восемь на каждую тему обязательного ядра. Сначала пройди все вопросы по порядку, затем повтори ошибки до верного ответа.</p>${saved?`<p class="essential-test-status"><strong>Сохранено: зачтено ${saved.mastered.length} из ${saved.initialIds.length}.</strong> Первый круг: просмотрено ${stage.seen}. На повторение: ${stage.retryCount}.</p>`:'<p class="essential-test-status">У этого теста своё сохранение. Можно остановиться и продолжить позже.</p>'}<div class="question-actions">${saved?`<button class="btn primary" data-action="essential-resume">Продолжить тест ${icon('arrow')}</button>`:''}<button class="btn ${saved?'secondary':'primary'}" data-action="essential-start">${saved?'Начать тест заново':'Начать тест · '+ESSENTIAL_TEST.questionIds.length+' вопросов'} ${saved?'':icon('arrow')}</button></div><details class="essential-test-topics"><summary>Какие темы входят · ${ESSENTIAL_TEST.topics.length}</summary><ol>${ESSENTIAL_TEST.topics.map(topic=>`<li><span>${esc(topic.title)}</span><small>${topic.count} вопросов</small></li>`).join('')}</ol><p>Это все темы обязательного ядра. Кейсы и эссе можно пройти отдельно в тематических уроках.</p></details></section>`;
+}
+
 function closedBlocksHTML() {
   return `<section class="closed-blocks-intro card"><span class="eyebrow">${ALL_CLOSED.length} ЗАКРЫТЫХ ВОПРОСОВ · 4 БЛОКА</span><h2>Весь блок, затем работа над ошибками</h2><ol><li>Вопросы идут по порядку, по одному. Количество верных вариантов не подсказывается.</li><li>После ошибки прочитай объяснение. Вопрос уйдёт в конец очереди.</li><li>Сначала закончишь первый круг, затем повторишь только ошибки. Блок завершится, когда на каждый вопрос ответишь правильно.</li></ol><p>У каждого блока своё сохранение. Можно выйти, перейти к другому блоку и позже нажать «Продолжить».</p></section><div class="closed-block-grid">${CLOSED_BLOCKS.map((block,i)=>{
     const saved=getResumableSession(progress,block.id), state=getStats(progress,block.questionIds);
@@ -9471,7 +9492,7 @@ function closedBlocksHTML() {
 }
 
 function bankView() {
-  return `${header('Вопросы по блокам', 'Пройди все вопросы блока, затем повтори ошибки до верного ответа')}${practiceTabs()}${closedBlocksHTML()}<details class="card question-catalog"><summary>Каталог вопросов и прежние открытые ответы</summary><p>Здесь можно найти отдельный вопрос, прочитать разбор или собрать свою выборку. Четыре блока выше содержат все закрытые вопросы без повторов между блоками.</p><div class="bank-controls"><label class="search-input">${icon('search')}<span class="sr-only">Поиск по вопросам</span><input id="bank-search" type="search" value="${esc(search)}" placeholder="Найти тему или вопрос…"></label><select id="set-filter" aria-label="Набор вопросов"><option value="all">Все материалы</option><option value="course" ${filter==='course'?'selected':''}>Дополнительная подготовка</option>${SETS.map(s => `<option value="${s.id}" ${filter === s.id ? 'selected' : ''}>${s.name}</option>`).join('')}</select><select id="type-filter" aria-label="Тип вопроса"><option value="all">Все типы</option><option value="closed" ${typeFilter === 'closed' ? 'selected' : ''}>Закрытые</option><option value="open" ${typeFilter === 'open' ? 'selected' : ''}>Открытые</option></select></div><div class="bank-start"><p>Отметь все подходящие варианты. Число верных ответов нужно определить по содержанию.</p><button class="btn secondary" data-action="train-filter">Тренировать выборку ${icon('arrow')}</button></div><section id="bank-results">${bankRows()}</section></details>`;
+  return `${header('Вопросы по блокам', 'Пройди все вопросы блока, затем повтори ошибки до верного ответа')}${practiceTabs()}${essentialTestHTML('bank')}${closedBlocksHTML()}<details class="card question-catalog"><summary>Каталог вопросов и прежние открытые ответы</summary><p>Здесь можно найти отдельный вопрос, прочитать разбор или собрать свою выборку. Четыре блока выше содержат все закрытые вопросы без повторов между блоками.</p><div class="bank-controls"><label class="search-input">${icon('search')}<span class="sr-only">Поиск по вопросам</span><input id="bank-search" type="search" value="${esc(search)}" placeholder="Найти тему или вопрос…"></label><select id="set-filter" aria-label="Набор вопросов"><option value="all">Все материалы</option><option value="course" ${filter==='course'?'selected':''}>Дополнительная подготовка</option>${SETS.map(s => `<option value="${s.id}" ${filter === s.id ? 'selected' : ''}>${s.name}</option>`).join('')}</select><select id="type-filter" aria-label="Тип вопроса"><option value="all">Все типы</option><option value="closed" ${typeFilter === 'closed' ? 'selected' : ''}>Закрытые</option><option value="open" ${typeFilter === 'open' ? 'selected' : ''}>Открытые</option></select></div><div class="bank-start"><p>Отметь все подходящие варианты. Число верных ответов нужно определить по содержанию.</p><button class="btn secondary" data-action="train-filter">Тренировать выборку ${icon('arrow')}</button></div><section id="bank-results">${bankRows()}</section></details>`;
 }
 
 function lecturePagesHTML(ranges) {
@@ -9612,7 +9633,7 @@ function home() {
   return `${header('Подготовка к экзамену','Два пространства: практиковаться и разбираться в теории')}${practiceTabs()}
     ${progress.preparation.mock&&!progress.preparation.mock.submittedAt?`<section class="resume-card"><div>${icon('list')}</div><div><strong>Пробный экзамен сохранён</strong><p>Продолжить с задания ${progress.preparation.mock.index+1} из 22</p></div><a class="btn primary" href="#exam">Продолжить экзамен</a></section>`:''}
     ${active?`<section class="resume-card"><div>${icon('repeat')}</div><div><strong>Тренировка сохранена</strong><p>${esc(progress.active.label)} · зачтено ${progress.active.mastered.length} из ${progress.active.initialIds.length}</p></div><button class="btn primary" data-action="resume">Продолжить с этого места</button></section>`:''}
-    <section class="hero prep-hero"><span class="pill">УЧИМСЯ ПРИМЕНЯТЬ</span><h2>Понять. Решить.<br>Объяснить своими словами.</h2><p>Сначала понятное объяснение, затем профессиональный разбор и практика.<br class="desktop-break"> Ошибки возвращаются на повторение, а черновики сохраняются.</p><div class="question-actions"><button class="btn primary" data-action="lesson-open" data-unit="${next?.id||'stakeholder'}">${next?'Следующий урок':'Вернуться к урокам'} ${icon('arrow')}</button><a class="btn light" href="#bank">Закрытые вопросы · 4 блока</a><button class="btn light" data-action="guide-show">Типы кейсов и решения</button></div></section>
+    ${essentialTestHTML('home')}<section class="hero prep-hero"><span class="pill">УЧИМСЯ ПРИМЕНЯТЬ</span><h2>Понять. Решить.<br>Объяснить своими словами.</h2><p>Сначала понятное объяснение, затем профессиональный разбор и практика.<br class="desktop-break"> Ошибки возвращаются на повторение, а черновики сохраняются.</p><div class="question-actions"><button class="btn primary" data-action="lesson-open" data-unit="${next?.id||'stakeholder'}">${next?'Следующий урок':'Вернуться к урокам'} ${icon('arrow')}</button><a class="btn light" href="#bank">Закрытые вопросы · 4 блока</a><button class="btn light" data-action="guide-show">Типы кейсов и решения</button></div></section>
     <div class="prep-metrics"><div class="card"><strong>${closedStats.learned}<small> / ${ALL_CLOSED.length}</small></strong><span>Тренировка: последний ответ верный</span></div><div class="card"><strong>${caseStats.learned}<small> / ${ALL_CASES.length}</small></strong><span>Кейсы: зачтены по самооценке</span></div><div class="card"><strong>${progress.preparation.read.length}<small> / ${COURSE_UNITS.length}</small></strong><span>Уроки отмечены прочитанными</span></div></div>
     ${formatCard()}
     <div class="section-heading"><h2>Начни с прикладных задач</h2><span>Эти типы прямо обсуждались в аудио</span></div>
@@ -9660,7 +9681,7 @@ function studyBlocksHTML() {
   return THEORY_TIERS.map(tier=>{
     const topics=ALL_TOPICS.filter(t=>TOPIC_PRIORITIES[t.id].tier===tier.id&&matches(t)).sort((a,b)=>THEORY_ORDER.indexOf(a.id)-THEORY_ORDER.indexOf(b.id));
     if(!topics.length)return '';
-    return `<section class="theory-priority-group" id="priority-${tier.id}"><div class="priority-group-header priority-${tier.id}"><span class="eyebrow">${esc(tier.step)}</span><h2 tabindex="-1">${esc(tier.label)} <span>${topics.length} ${plural(topics.length,'тема','темы','тем')}</span></h2><p>${esc(tier.description)}</p><p><strong>Как проверить готовность.</strong> ${esc(tier.readiness)}</p></div>${topics.map(studyTopicHTML).join('')}</section>`;
+    return `<section class="theory-priority-group" id="priority-${tier.id}"><div class="priority-group-header priority-${tier.id}"><span class="eyebrow">${esc(tier.step)}</span><h2 tabindex="-1">${esc(tier.label)} <span>${topics.length} ${plural(topics.length,'тема','темы','тем')}</span></h2><p>${esc(tier.description)}</p><p><strong>Как проверить готовность.</strong> ${esc(tier.readiness)}</p></div>${tier.id==='essential'?essentialTestHTML('theory'):''}${topics.map(studyTopicHTML).join('')}</section>`;
   }).join('')||'<p class="card empty-state">Ничего не найдено. Попробуй другое слово.</p>';
 }
 
@@ -9733,6 +9754,8 @@ const actions = {
   pause() { persist(); go('home'); },
   mistakes() { begin(stats().mistakes, 'Повторение ошибок', true); },
   single(button) { const q = byId[button.dataset.id]; begin([q.id], `Один вопрос · ${q.topic}`); },
+  'essential-start'() {begin(ESSENTIAL_TEST.questionIds,ESSENTIAL_TEST.title,false,ESSENTIAL_TEST.id);},
+  'essential-resume'() {resumeSet(ESSENTIAL_TEST.id);},
   'block-start'(button) { const block=CLOSED_BLOCKS.find(b=>b.id===button.dataset.block);if(block)begin(block.questionIds,block.title,false,block.id); },
   'block-resume'(button) { resumeSet(button.dataset.block); },
   'visual-pick'(button) { const id=button.dataset.topic;if(!VISUAL_LESSONS[id])return;const index=Number(button.dataset.index);visualSelections[id]=index;const visual=document.getElementById('visual-'+id);if(visual){const opened=Boolean(visual.querySelector('.visual-professional[open]'));visual.outerHTML=renderVisualLesson(id,index);const updated=document.getElementById('visual-'+id);if(opened)updated.querySelector('.visual-professional').open=true;updated.querySelector(`[data-index="${index}"]`)?.focus({preventScroll:true});} },
@@ -9791,7 +9814,7 @@ const actions = {
     recordAnswer(progress, progress.active, question, { correct: false }, { selfAssessed: true, text: progress.active.drafts[question.id] || '', criteria: [...rubricChecked] });
     persist(); actions.next();
   },
-  'repeat-session'() { const s = progress.active; begin(s.initialIds, s.label, ![...CLOSED_BLOCKS,...TOPIC_QUESTION_GROUPS].some(b=>b.id===sessionSetId(s)), sessionSetId(s)); },
+  'repeat-session'() { const s = progress.active; begin(s.initialIds, s.label, !ORDERED_TRAINING_SETS.some(b=>b.id===sessionSetId(s)), sessionSetId(s)); },
   export() {
     const blob = new Blob([JSON.stringify({ ...progress, bankVersion: BANK_VERSION, preparationVersion: PREP_VERSION, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
